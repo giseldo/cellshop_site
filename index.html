@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cell Shop — Catálogo de iPhones em Arapiraca-AL</title>
+<meta name="description" content="Cell Shop: catálogo de iPhones disponíveis em nossa loja em Arapiraca-AL. Veja os modelos e fale com nossa equipe pelo WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<a class="skip" href="#estoque">Ir para o estoque</a>
+
+<!-- ============ HEADER ============ -->
+<header class="hd" id="header">
+  <div class="wrap hd-in">
+    <a class="brand" href="#top">
+      <img class="brand-logo" src="logo-cell-shop.png" alt="" width="256" height="256">
+      <span class="brand-txt" data-brand-name>Sua Loja</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Navegação principal">
+      <a href="#estoque">Estoque</a>
+      <a href="#assistencia">Assistência técnica</a>
+      <a href="#garantia">Garantia</a>
+      <a href="#localizacao">Localização</a>
+      <a class="btn btn-wa btn-sm nav-wa" data-wa="Olá! Vi o catálogo de iPhones no site e gostaria de mais informações.">
+        <span class="ico-wa" aria-hidden="true"></span>WhatsApp
+      </a>
+    </nav>
+
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <h1>Encontre seu próximo iPhone</h1>
+      <p class="hero-sub">Confira os modelos disponíveis em nossa loja e fale diretamente com nossa equipe.</p>
+      <div class="hero-acts">
+        <a class="btn btn-light" href="#estoque">Ver estoque</a>
+        <a class="btn btn-wa" data-wa="Olá! Gostaria de saber quais iPhones estão disponíveis hoje.">
+          <span class="ico-wa" aria-hidden="true"></span>Falar no WhatsApp
+        </a>
+      </div>
+    </div>
+    <div class="hero-art" id="heroArt" aria-hidden="true"></div>
+  </div>
+
+  <div class="wrap">
+    <ul class="strip">
+      <li><strong>Atendimento online</strong><span>24 horas</span></li>
+      <li><strong>Garantia</strong><span>de até 2 anos</span></li>
+      <li><strong>Entrega grátis</strong><span>Arapiraca e região</span></li>
+      <li><strong>Assistência</strong><span>técnica especializada</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ ESTOQUE ============ -->
+<section class="sec" id="estoque">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>iPhones disponíveis</h2>
+      <p>Confira alguns dos aparelhos disponíveis em nossa loja.</p>
+    </div>
+
+    <p class="demo-note">
+      Catálogo de demonstração: os aparelhos abaixo são exemplos, criados para mostrar como o
+      catálogo funciona. As cores variam conforme o estoque e os valores são informados pela
+      equipe no WhatsApp.
+    </p>
+
+    <!-- ---- Filtros ---- -->
+    <form class="filters" id="filters" autocomplete="off">
+      <div class="f-search">
+        <span class="ico-search" aria-hidden="true"></span>
+        <input type="search" id="fBusca" placeholder="Qual iPhone você está procurando?" aria-label="Buscar aparelho">
+      </div>
+
+      <div class="f-grid">
+        <label class="f-field">
+          <span>Modelo</span>
+          <select id="fModelo"><option value="">Todos</option></select>
+        </label>
+        <label class="f-field">
+          <span>Capacidade</span>
+          <select id="fCapacidade"><option value="">Todas</option></select>
+        </label>
+        <label class="f-field">
+          <span>Disponibilidade</span>
+          <select id="fStatus">
+            <option value="disponivel">Disponíveis</option>
+            <option value="reservado">Reservados</option>
+            <option value="">Mostrar tudo</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="f-foot">
+        <p id="contador" aria-live="polite"></p>
+        <button type="button" class="btn-clear" id="limpar">Limpar filtros</button>
+      </div>
+    </form>
+
+    <!-- ---- Grade de produtos (preenchida por js/script.js) ---- -->
+    <div class="grid" id="grade"></div>
+
+    <div class="empty" id="vazio" hidden>
+      <p class="empty-t">Nenhum aparelho corresponde a esses filtros.</p>
+      <p class="empty-d">Ajuste a busca ou pergunte para a equipe — chegam aparelhos novos com frequência.</p>
+      <a class="btn btn-wa" data-wa="Olá! Não encontrei o modelo que procuro no site. Vocês têm previsão de chegada?">
+        <span class="ico-wa" aria-hidden="true"></span>Perguntar para a equipe
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GARANTIA ============ -->
+<section class="sec sec-dark" id="garantia">
+  <div class="wrap split">
+    <div class="split-art" aria-hidden="true">
+      <div class="seal">
+        <span class="seal-n">2</span>
+        <span class="seal-u">anos</span>
+        <span class="seal-ring"></span>
+      </div>
+    </div>
+    <div class="split-copy">
+      <h2>Até 2 anos de garantia</h2>
+      <p>Consulte as condições de garantia de cada aparelho diretamente com nossa equipe.</p>
+      <a class="btn btn-wa" data-wa="Olá! Gostaria de entender as condições de garantia dos aparelhos.">
+        <span class="ico-wa" aria-hidden="true"></span>Consultar garantia
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ASSISTÊNCIA TÉCNICA ============ -->
+<section class="sec" id="assistencia">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Assistência técnica especializada</h2>
+      <p>Alguns dos atendimentos mais procurados. Consulte com a equipe o serviço que você precisa.</p>
+    </div>
+
+    <ul class="svc">
+      <li>
+        <span class="svc-ic svc-ic-screen" aria-hidden="true"></span>
+        <h3>Tela e vidro</h3>
+        <p>Avaliação de trincados, touch e imagem.</p>
+      </li>
+      <li>
+        <span class="svc-ic svc-ic-batt" aria-hidden="true"></span>
+        <h3>Bateria</h3>
+        <p>Teste de saúde e desempenho da bateria.</p>
+      </li>
+      <li>
+        <span class="svc-ic svc-ic-drop" aria-hidden="true"></span>
+        <h3>Contato com líquido</h3>
+        <p>Diagnóstico e limpeza técnica da placa.</p>
+      </li>
+      <li>
+        <span class="svc-ic svc-ic-soft" aria-hidden="true"></span>
+        <h3>Sistema e dados</h3>
+        <p>Atualização, restauração e transferência.</p>
+      </li>
+    </ul>
+
+    <div class="pull">
+      <p>Precisa de assistência? Entre em contato com nossa equipe.</p>
+      <a class="btn btn-wa" data-wa="Olá! Preciso de assistência técnica para o meu iPhone.">
+        <span class="ico-wa" aria-hidden="true"></span>Falar com a assistência
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENTREGA ============ -->
+<section class="sec sec-tint" id="entrega">
+  <div class="wrap split split-rev">
+    <div class="split-copy">
+      <h2>Entrega grátis em Arapiraca e cidades vizinhas</h2>
+      <p>Combine com a equipe o melhor horário para receber seu aparelho.</p>
+      <a class="btn btn-dark" data-wa="Olá! Gostaria de saber sobre a entrega para a minha cidade.">Combinar entrega</a>
+    </div>
+    <div class="split-art" aria-hidden="true">
+      <div class="route">
+        <span class="route-line"></span>
+        <span class="route-dot route-a"></span>
+        <span class="route-dot route-b"></span>
+        <span class="route-box"></span>
+        <span class="route-lbl route-lbl-a">Nossa loja</span>
+        <span class="route-lbl route-lbl-b">Sua casa</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LOCALIZAÇÃO ============ -->
+<section class="sec" id="localizacao">
+  <div class="wrap loc">
+    <div class="loc-copy">
+      <h2>Visite nossa loja</h2>
+      <address>
+        Rua Expedicionários Brasileiro, 600 B<br>
+        Empresarial Adelina Rocha — Sala 4<br>
+        Arapiraca — AL<br>
+        57307-295
+      </address>
+      <a class="btn btn-dark" data-maps>Ver no Google Maps</a>
+    </div>
+    <div class="loc-card">
+      <h3>Atendimento</h3>
+      <dl>
+        <dt>Online</dt><dd>24 horas pelo WhatsApp</dd>
+        <dt>Loja física</dt><dd>Confirme o horário com a equipe</dd>
+      </dl>
+      <a class="btn btn-wa btn-full" data-wa="Olá! Gostaria de confirmar o horário de atendimento da loja.">
+        <span class="ico-wa" aria-hidden="true"></span>Confirmar horário
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM ============ -->
+<section class="sec sec-tint" id="instagram">
+  <div class="wrap ig">
+    <h2>Veja nossas novidades no Instagram</h2>
+    <p>Novos aparelhos chegam constantemente. Acompanhe nosso Instagram para conferir as novidades.</p>
+    <a class="btn btn-dark" data-instagram>
+      <span class="ico-ig" aria-hidden="true"></span>Seguir no Instagram
+    </a>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta">
+  <div class="wrap cta-in">
+    <h2>Encontrou o iPhone que estava procurando?</h2>
+    <p>Fale com nossa equipe e confirme a disponibilidade.</p>
+    <a class="btn btn-wa btn-lg" data-wa="Olá! Vi o catálogo no site e quero confirmar a disponibilidade de um aparelho.">
+      <span class="ico-wa" aria-hidden="true"></span>Chamar no WhatsApp
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="ft">
+  <div class="wrap ft-in">
+    <div class="ft-brand">
+      <a class="brand" href="#top">
+        <img class="brand-logo" src="logo-cell-shop.png" alt="" width="256" height="256">
+        <span class="brand-txt" data-brand-name>Sua Loja</span>
+      </a>
+      <p>Venda de iPhones e celulares em Arapiraca-AL.</p>
+    </div>
+
+    <div class="ft-col">
+      <h4>Contato</h4>
+      <a data-wa="Olá! Gostaria de mais informações.">WhatsApp</a>
+      <a data-instagram>Instagram</a>
+      <p>Atendimento online 24 horas</p>
+    </div>
+
+    <div class="ft-col">
+      <h4>Serviços</h4>
+      <a href="#garantia">Garantia de até 2 anos</a>
+      <a href="#assistencia">Assistência técnica</a>
+      <a href="#entrega">Entrega grátis na região</a>
+    </div>
+
+    <div class="ft-col">
+      <h4>Endereço</h4>
+      <address>
+        Rua Expedicionários Brasileiro, 600 B<br>
+        Empresarial Adelina Rocha — Sala 4<br>
+        Arapiraca — AL, 57307-295
+      </address>
+    </div>
+  </div>
+
+  <div class="wrap ft-bot">
+    <p>© <span data-ano></span> <span data-brand-name>Sua Loja</span>. Todos os direitos reservados.</p>
+    <p>Catálogo de demonstração. Aparelhos exibidos são exemplos.</p>
+  </div>
+</footer>
+
+<!-- Botão flutuante de WhatsApp (mobile) -->
+<a class="float-wa" data-wa="Olá! Vi o catálogo de iPhones no site." aria-label="Falar no WhatsApp">
+  <span class="ico-wa" aria-hidden="true"></span>
+</a>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="products.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
