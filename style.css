@@ -622,6 +622,7 @@ section[id] { scroll-margin-top: 78px; }
   display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;
 }
 .ft-bot p { font-size: .84rem; color: var(--ink-2); }
+.ft-ver { width: 100%; font-size: .78rem; opacity: .75; font-variant-numeric: tabular-nums; }
 
 /* ---------------- 17. Flutuante + toast --------------------------------- */
 .float-wa {

@@ -481,6 +481,18 @@ function aplicarMarca() {
   document.title = CONFIG.nomeLoja + ' — Catálogo de iPhones em Arapiraca-AL';
 }
 
+/* ---------------- Versão publicada (gerada por build-info.js no deploy) -- */
+function mostrarVersao() {
+  const el = document.getElementById('versao');
+  const b = window.BUILD;
+  if (!el || !b || !b.data) return;   /* em desenvolvimento local não há dados */
+  const quando = new Date(b.data).toLocaleString('pt-BR', {
+    dateStyle: 'short', timeStyle: 'short', timeZone: 'America/Maceio'
+  });
+  el.textContent = 'Versão ' + b.sha + ' · publicada em ' + quando;
+  el.hidden = false;
+}
+
 /* ---------------- Revelação suave (uma vez, respeitando preferências) --- */
 function revelar() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -502,6 +514,7 @@ function revelar() {
   ligarEventos();
   renderizar();
   montarDepoimentos();
+  mostrarVersao();
   atualizarBarraComparar();
   revelar();
 

@@ -1,6 +1,6 @@
 /* Service worker: rede primeiro, com cache de reserva para funcionar offline. */
 const CACHE = 'cellshop-v1';
-const BASE = ['./', 'index.html', 'style.css', 'products.js', 'script.js', 'logo-cell-shop.png', 'manifest.webmanifest'];
+const BASE = ['./', 'index.html', 'style.css', 'products.js', 'script.js', 'version.js', 'logo-cell-shop.png', 'manifest.webmanifest'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(BASE); }));
