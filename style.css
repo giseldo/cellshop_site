@@ -214,7 +214,7 @@ section[id] { scroll-margin-top: 78px; }
 .hero {
   position: relative; overflow: hidden;
   background: var(--deep); color: var(--deep-ink);
-  padding-top: clamp(48px, 7vw, 84px); padding-bottom: 0;
+  padding-top: clamp(32px, 4.5vw, 56px); padding-bottom: 0;
 }
 .hero-glow {
   position: absolute; inset: -30% -10% auto -10%; height: 90%;
@@ -227,10 +227,10 @@ section[id] { scroll-margin-top: 78px; }
 .hero-in {
   position: relative;
   display: grid; grid-template-columns: 1.08fr .92fr; gap: clamp(24px, 4vw, 56px);
-  align-items: center; padding-bottom: clamp(40px, 6vw, 72px);
+  align-items: center; padding-bottom: clamp(28px, 4vw, 48px);
 }
-.hero-copy { max-width: 17em; }
-.hero h1 { color: #fff; }
+.hero-copy { max-width: 34rem; }
+.hero h1 { color: #fff; font-size: clamp(2.3rem, 5.2vw, 3.7rem); }
 .hero-sub {
   margin-top: 20px; max-width: 34ch;
   color: var(--deep-ink-2); font-size: clamp(1.02rem, 2.2vw, 1.16rem); line-height: 1.55;
@@ -245,7 +245,7 @@ section[id] { scroll-margin-top: 78px; }
 .hero-acts { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
 
 /* composição de aparelhos */
-.hero-art { position: relative; height: clamp(300px, 42vw, 440px); }
+.hero-art { position: relative; height: clamp(280px, 32vw, 400px); }
 .hero-dev { position: absolute; bottom: 0; filter: drop-shadow(0 30px 40px rgba(0,0,0,.45)); }
 .hero-dev .dev { height: 100%; width: auto; }
 .hero-dev-1 { height: 86%; left: 26%; z-index: 3; }
