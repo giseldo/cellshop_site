@@ -9,6 +9,28 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<meta name="theme-color" content="#0b1622">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobilePhoneStore",
+  "name": "Cell Shop",
+  "image": "logo-cell-shop.png",
+  "telephone": "+55 82 99382-4314",
+  "sameAs": ["https://www.instagram.com/cellshop.alagoas/"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Rua Expedicionários Brasileiro, 600 B, Empresarial Adelina Rocha, Sala 4",
+    "addressLocality": "Arapiraca",
+    "addressRegion": "AL",
+    "postalCode": "57307-295",
+    "addressCountry": "BR"
+  }
+}
+</script>
 </head>
 <body>
 
@@ -45,6 +67,7 @@
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="wrap hero-in">
     <div class="hero-copy">
+      <p class="hero-pill"><span aria-hidden="true"></span>Loja física em Arapiraca-AL</p>
       <h1>Encontre seu próximo iPhone</h1>
       <p class="hero-sub">Confira os modelos disponíveis em nossa loja e fale diretamente com nossa equipe.</p>
       <div class="hero-acts">
@@ -207,6 +230,54 @@
   </div>
 </section>
 
+<!-- ============ DEPOIMENTOS (preenchido por script.js; oculto se vazio) ============ -->
+<section class="sec sec-tint" id="depoimentos" hidden>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>O que nossos clientes dizem</h2>
+      <p>Avaliações de quem já comprou com a gente.</p>
+    </div>
+    <div class="dep" id="depGrid"></div>
+    <a class="btn btn-dark dep-more" id="depGoogle" hidden target="_blank" rel="noopener">Ver avaliações no Google</a>
+  </div>
+</section>
+
+<!-- ============ PERGUNTAS FREQUENTES ============ -->
+<section class="sec" id="duvidas">
+  <div class="wrap faq-wrap">
+    <div class="sec-head">
+      <h2>Perguntas frequentes</h2>
+      <p>Não achou sua resposta? Chame a equipe no WhatsApp.</p>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Os valores aparecem no site?</summary>
+        <p>Não. Os valores variam conforme o aparelho e a condição, então a equipe informa o preço atualizado pelo WhatsApp assim que você toca em “Tenho interesse”.</p>
+      </details>
+      <details>
+        <summary>Como sei se o aparelho está disponível?</summary>
+        <p>Cada card mostra a situação do aparelho (disponível, reservado ou vendido). Para confirmar, toque em “Tenho interesse” e nossa equipe responde pelo WhatsApp.</p>
+      </details>
+      <details>
+        <summary>Qual é a garantia?</summary>
+        <p>Trabalhamos com garantia de até 2 anos. As condições variam de acordo com cada aparelho, por isso consulte a equipe antes de fechar.</p>
+      </details>
+      <details>
+        <summary>Vocês fazem entrega?</summary>
+        <p>Sim, a entrega é grátis em Arapiraca e cidades vizinhas. Combine com a equipe o melhor horário para receber seu aparelho.</p>
+      </details>
+      <details>
+        <summary>Quais são as formas de pagamento?</summary>
+        <p>Fale com a nossa equipe pelo WhatsApp para saber as formas de pagamento e as condições disponíveis para o aparelho que você escolher.</p>
+      </details>
+      <details>
+        <summary>Vocês fazem assistência técnica?</summary>
+        <p>Sim. Atendemos casos de tela e vidro, bateria, contato com líquido, sistema e dados. Envie uma mensagem descrevendo o problema para receber uma avaliação.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
 <!-- ============ LOCALIZAÇÃO ============ -->
 <section class="sec" id="localizacao">
   <div class="wrap loc">
@@ -229,6 +300,12 @@
       <a class="btn btn-wa btn-full" data-wa="Olá! Gostaria de confirmar o horário de atendimento da loja.">
         <span class="ico-wa" aria-hidden="true"></span>Confirmar horário
       </a>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="loc-map">
+      <iframe id="mapa" title="Mapa com a localização da Cell Shop" loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
     </div>
   </div>
 </section>
@@ -302,6 +379,21 @@
 <a class="float-wa" data-wa="Olá! Vi o catálogo de iPhones no site." aria-label="Falar no WhatsApp">
   <span class="ico-wa" aria-hidden="true"></span>
 </a>
+
+<!-- Comparador de modelos -->
+<div class="cmp-bar" id="cmpBar" hidden>
+  <p id="cmpTxt" aria-live="polite"></p>
+  <button type="button" class="btn btn-wa btn-sm" id="cmpOpen">Comparar</button>
+  <button type="button" class="btn-clear" id="cmpClear">Limpar</button>
+</div>
+
+<dialog class="cmp" id="cmp" aria-labelledby="cmpTitulo">
+  <div class="cmp-head">
+    <h3 id="cmpTitulo">Comparar aparelhos</h3>
+    <button type="button" class="cmp-x" id="cmpClose" aria-label="Fechar comparação">&times;</button>
+  </div>
+  <div class="cmp-scroll" id="cmpBody"></div>
+</dialog>
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 

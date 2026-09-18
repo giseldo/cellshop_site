@@ -16,11 +16,11 @@ const CONFIG = {
 
   // WhatsApp em formato internacional, só números: 55 + DDD + número.
   // Exemplo (Arapiraca): '5582999999999'
-  whatsapp: '5582000000000',
+  whatsapp: '5582993824314',
 
   // Perfil oficial do Instagram (só o usuário, sem @ e sem link).
   // Exemplo: 'cellshop'
-  instagram: '',
+  instagram: 'cellshop.alagoas',
 
   // Link do Google Maps da loja (copie de "Compartilhar" no Google Maps).
   // Se ficar vazio, o botão faz uma busca pelo endereço abaixo.
@@ -33,7 +33,44 @@ const CONFIG = {
   // valor é passado pela equipe no WhatsApp.
   // Para voltar a exibir preços um dia, mude para true e preencha o campo
   // "preco" dos produtos abaixo.
-  mostrarPrecos: false
+  mostrarPrecos: false,
+
+  // Link da página da loja no Google (avaliações). Opcional: se preenchido,
+  // aparece o botão "Ver avaliações no Google" na seção de depoimentos.
+  avaliacoesGoogle: ''
+};
+
+
+/* --------------------------------------------------------------------------
+   DEPOIMENTOS — adicione somente depoimentos REAIS de clientes (com
+   autorização). Enquanto a lista estiver vazia, a seção não aparece no site.
+   Exemplo:
+     { nome: 'Maria S.', cidade: 'Arapiraca', texto: 'Atendimento excelente!', nota: 5 }
+   -------------------------------------------------------------------------- */
+const DEPOIMENTOS = [];
+
+
+/* --------------------------------------------------------------------------
+   FICHA TÉCNICA para o comparador de modelos (chave = nome exato do modelo).
+   Confira/ajuste os dados conforme os aparelhos que você vende.
+   -------------------------------------------------------------------------- */
+const MODELOS = {
+  'iPhone 17 Pro Max': { chip: 'A19 Pro',    tela: '6,9"', camera: '48 MP + 48 MP ultra + 48 MP tele (4x)', conector: 'USB-C' },
+  'iPhone 17 Pro':     { chip: 'A19 Pro',    tela: '6,3"', camera: '48 MP + 48 MP ultra + 48 MP tele (4x)', conector: 'USB-C' },
+  'iPhone 17':         { chip: 'A19',        tela: '6,3"', camera: '48 MP + 48 MP ultra',                    conector: 'USB-C' },
+  'iPhone 16 Pro Max': { chip: 'A18 Pro',    tela: '6,9"', camera: '48 MP + 48 MP ultra + 12 MP tele (5x)', conector: 'USB-C' },
+  'iPhone 16 Pro':     { chip: 'A18 Pro',    tela: '6,3"', camera: '48 MP + 48 MP ultra + 12 MP tele (5x)', conector: 'USB-C' },
+  'iPhone 16':         { chip: 'A18',        tela: '6,1"', camera: '48 MP + 12 MP ultra',                    conector: 'USB-C' },
+  'iPhone 15 Pro Max': { chip: 'A17 Pro',    tela: '6,7"', camera: '48 MP + 12 MP ultra + 12 MP tele (5x)', conector: 'USB-C' },
+  'iPhone 15 Pro':     { chip: 'A17 Pro',    tela: '6,1"', camera: '48 MP + 12 MP ultra + 12 MP tele (3x)', conector: 'USB-C' },
+  'iPhone 15':         { chip: 'A16 Bionic', tela: '6,1"', camera: '48 MP + 12 MP ultra',                    conector: 'USB-C' },
+  'iPhone 14 Pro Max': { chip: 'A16 Bionic', tela: '6,7"', camera: '48 MP + 12 MP ultra + 12 MP tele (3x)', conector: 'Lightning' },
+  'iPhone 14 Pro':     { chip: 'A16 Bionic', tela: '6,1"', camera: '48 MP + 12 MP ultra + 12 MP tele (3x)', conector: 'Lightning' },
+  'iPhone 14':         { chip: 'A15 Bionic', tela: '6,1"', camera: '12 MP + 12 MP ultra',                    conector: 'Lightning' },
+  'iPhone 13 Pro':     { chip: 'A15 Bionic', tela: '6,1"', camera: '12 MP + 12 MP ultra + 12 MP tele (3x)', conector: 'Lightning' },
+  'iPhone 13':         { chip: 'A15 Bionic', tela: '6,1"', camera: '12 MP + 12 MP ultra',                    conector: 'Lightning' },
+  'iPhone 12 Pro':     { chip: 'A14 Bionic', tela: '6,1"', camera: '12 MP + 12 MP ultra + 12 MP tele (2x)', conector: 'Lightning' },
+  'iPhone 12':         { chip: 'A14 Bionic', tela: '6,1"', camera: '12 MP + 12 MP ultra',                    conector: 'Lightning' }
 };
 
 

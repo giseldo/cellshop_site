@@ -24,6 +24,8 @@ function carregarProdutos() {
 }
 
 let estoque = [];
+let comparar = [];   /* ids marcados no comparador (máx. 3) */
+const MAX_COMPARAR = 3;
 
 /* ---------------- Rótulos e cores ---------------------------------------- */
 const STATUS = {
@@ -139,7 +141,8 @@ function mensagemProduto(p) {
            ' está reservado no site. Gostaria de saber se ele pode ficar disponível.';
   }
   return 'Olá! Tenho interesse no ' + p.modelo + ' ' + p.armazenamento + 'GB' +
-         (p.cor ? ' ' + p.cor : '') + '. Gostaria de saber se ele ainda está disponível.';
+         (p.cor ? ' ' + p.cor : '') + (p.condicao ? ' (' + p.condicao.toLowerCase() + ')' : '') +
+         '. Gostaria de saber se ele ainda está disponível.';
 }
 
 /* ---------------- Aviso (toast) ----------------------------------------- */
@@ -169,6 +172,9 @@ function card(p) {
     '<article class="card' + (vendido ? ' card-out' : '') + '">' +
       '<div class="card-media">' +
         '<span class="badge ' + st.classe + '">' + st.rotulo + '</span>' +
+        (vendido ? '' :
+          '<label class="card-cmp"><input type="checkbox" data-cmp="' + esc(p.id) + '"' +
+          (comparar.indexOf(String(p.id)) !== -1 ? ' checked' : '') + '>Comparar</label>') +
         media +
       '</div>' +
       '<div class="card-body">' +
@@ -251,6 +257,80 @@ function renderizar() {
         (disp !== itens.length ? ', ' + disp + (disp === 1 ? ' disponível' : ' disponíveis') : '');
 }
 
+/* ---------------- Comparador de modelos --------------------------------- */
+function atualizarBarraComparar() {
+  const n = comparar.length;
+  document.getElementById('cmpBar').hidden = n === 0;
+  document.getElementById('cmpTxt').textContent =
+    n + (n === 1 ? ' selecionado' : ' selecionados');
+  const abrir = document.getElementById('cmpOpen');
+  abrir.disabled = n < 2;
+  abrir.title = n < 2 ? 'Selecione pelo menos 2 aparelhos' : '';
+}
+
+function abrirComparador() {
+  const itens = comparar.map(function (id) {
+    return estoque.filter(function (p) { return String(p.id) === id; })[0];
+  }).filter(Boolean);
+  if (itens.length < 2) { aviso('Selecione pelo menos 2 aparelhos para comparar.'); return; }
+
+  const ficha = function (p) { return (typeof MODELOS !== 'undefined' && MODELOS[p.modelo]) || {}; };
+  const linhas = [
+    ['Capacidade', function (p) { return p.armazenamento + ' GB'; }],
+    ['Condição',   function (p) { return p.condicao || '—'; }],
+    ['Cor',        function (p) { return p.cor || 'Cores variadas'; }],
+    ['Chip',       function (p) { return ficha(p).chip || '—'; }],
+    ['Tela',       function (p) { return ficha(p).tela || '—'; }],
+    ['Câmeras',    function (p) { return ficha(p).camera || '—'; }],
+    ['Conector',   function (p) { return ficha(p).conector || '—'; }],
+    ['Situação',   function (p) { return (STATUS[p.status] || STATUS.disponivel).rotulo; }]
+  ];
+
+  const cel = function (tag, fn) {
+    return itens.map(function (p) { return '<' + tag + '>' + fn(p) + '</' + tag + '>'; }).join('');
+  };
+
+  document.getElementById('cmpBody').innerHTML =
+    '<table>' +
+      '<thead><tr><th scope="col"></th>' + cel('th', function (p) { return esc(p.modelo); }) + '</tr></thead>' +
+      '<tbody>' +
+        linhas.map(function (l) {
+          return '<tr><th scope="row">' + l[0] + '</th>' + cel('td', function (p) { return esc(l[1](p)); }) + '</tr>';
+        }).join('') +
+      '</tbody>' +
+      '<tfoot><tr><td></td>' + cel('td', function (p) {
+        return '<button class="btn btn-wa btn-sm" type="button" data-produto="' + esc(p.id) + '">' +
+               '<span class="ico-wa" aria-hidden="true"></span>Tenho interesse</button>';
+      }) + '</tr></tfoot>' +
+    '</table>';
+
+  const dlg = document.getElementById('cmp');
+  if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+}
+
+/* ---------------- Depoimentos ------------------------------------------- */
+function montarDepoimentos() {
+  const lista = (typeof DEPOIMENTOS !== 'undefined' && DEPOIMENTOS) || [];
+  const sec = document.getElementById('depoimentos');
+  if (!sec || lista.length === 0) return;   /* sem depoimentos reais, a seção fica oculta */
+
+  document.getElementById('depGrid').innerHTML = lista.map(function (d) {
+    const nota = Math.max(0, Math.min(5, Math.round(d.nota || 5)));
+    return (
+      '<figure>' +
+        '<div class="dep-stars" role="img" aria-label="Nota ' + nota + ' de 5">' +
+          '★★★★★'.slice(0, nota) + '<span style="opacity:.25">' + '★★★★★'.slice(nota) + '</span></div>' +
+        '<blockquote>“' + esc(d.texto) + '”</blockquote>' +
+        '<figcaption><strong>' + esc(d.nome) + '</strong>' + (d.cidade ? ' · ' + esc(d.cidade) : '') + '</figcaption>' +
+      '</figure>'
+    );
+  }).join('');
+
+  const g = document.getElementById('depGoogle');
+  if (CONFIG.avaliacoesGoogle) { g.href = CONFIG.avaliacoesGoogle; g.hidden = false; }
+  sec.hidden = false;
+}
+
 /* ---------------- Ligações da interface --------------------------------- */
 function ligarEventos() {
   /* Filtros */
@@ -267,6 +347,39 @@ function ligarEventos() {
 
   /* "Tenho interesse" — delegação de eventos na grade */
   document.getElementById('grade').addEventListener('click', function (e) {
+    const btn = e.target.closest('[data-produto]');
+    if (!btn) return;
+    const p = estoque.filter(function (x) { return String(x.id) === btn.dataset.produto; })[0];
+    if (p) abrirWhatsApp(mensagemProduto(p));
+  });
+
+  /* Comparador */
+  document.getElementById('grade').addEventListener('change', function (e) {
+    const box = e.target.closest('[data-cmp]');
+    if (!box) return;
+    const id = box.dataset.cmp;
+    if (box.checked) {
+      if (comparar.length >= MAX_COMPARAR) {
+        box.checked = false;
+        aviso('Você pode comparar até ' + MAX_COMPARAR + ' aparelhos por vez.');
+        return;
+      }
+      comparar.push(id);
+    } else {
+      comparar = comparar.filter(function (x) { return x !== id; });
+    }
+    atualizarBarraComparar();
+  });
+  document.getElementById('cmpOpen').addEventListener('click', abrirComparador);
+  document.getElementById('cmpClear').addEventListener('click', function () {
+    comparar = [];
+    atualizarBarraComparar();
+    renderizar();
+  });
+  const dlg = document.getElementById('cmp');
+  document.getElementById('cmpClose').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) {
+    if (e.target === dlg) { dlg.close(); return; }
     const btn = e.target.closest('[data-produto]');
     if (!btn) return;
     const p = estoque.filter(function (x) { return String(x.id) === btn.dataset.produto; })[0];
@@ -310,6 +423,13 @@ function ligarEventos() {
     el.target = '_blank';
     el.rel = 'noopener';
   });
+
+  /* Mapa incorporado (usa o endereço, sem chave de API) */
+  const mapa = document.getElementById('mapa');
+  if (mapa) {
+    mapa.src = 'https://maps.google.com/maps?q=' + encodeURIComponent(CONFIG.endereco) +
+      '&z=16&output=embed';
+  }
 
   /* Menu hamburger */
   const burger = document.getElementById('burger');
@@ -364,7 +484,7 @@ function aplicarMarca() {
 /* ---------------- Revelação suave (uma vez, respeitando preferências) --- */
 function revelar() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const alvos = document.querySelectorAll('.sec-head, .split, .loc, .ig, .cta-in');
+  const alvos = document.querySelectorAll('.sec-head, .split, .loc, .loc-map, .ig, .cta-in, .faq, .dep, .svc, .pull');
   const io = new IntersectionObserver(function (entradas) {
     entradas.forEach(function (e) {
       if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
@@ -381,5 +501,12 @@ function revelar() {
   montarHero();
   ligarEventos();
   renderizar();
+  montarDepoimentos();
+  atualizarBarraComparar();
   revelar();
+
+  /* App instalável (PWA): funciona em https ou localhost */
+  if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  }
 })();
